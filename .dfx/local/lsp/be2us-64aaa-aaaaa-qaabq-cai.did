@@ -1,0 +1,194 @@
+type definite_canister_settings = 
+ record {
+   compute_allocation: nat;
+   controllers: vec principal;
+   freezing_threshold: nat;
+   memory_allocation: nat;
+ };
+type Users = vec User;
+type User__1 = principal;
+type User = principal;
+type TypeToken = 
+ variant {
+   JWT;
+   UJWT;
+ };
+type Token = 
+ record {
+   header: Header;
+   payload: Payload;
+ };
+type Scaner = 
+ variant {
+   OFF;
+   ON;
+ };
+type Roles = vec Role;
+type Role__1 = text;
+type Role = text;
+type Result_9 = 
+ variant {
+   err: Errors;
+   ok: Permission__1;
+ };
+type Result_8 = 
+ variant {
+   err: Errors;
+   ok: Role__1;
+ };
+type Result_7 = 
+ variant {
+   err: Errors;
+   ok: User__1;
+ };
+type Result_6 = 
+ variant {
+   err: Errors;
+   ok: ObjectRef;
+ };
+type Result_5 = 
+ variant {
+   err: Errors;
+   ok: Admins;
+ };
+type Result_4 = 
+ variant {
+   err: Errors;
+   ok: AuthClient;
+ };
+type Result_3 = 
+ variant {
+   err: Errors;
+   ok:
+    record {
+      cycles: nat;
+      freezing_threshold: nat;
+      memory_size: nat;
+      module_hash: opt blob;
+      settings: definite_canister_settings;
+      status: variant {
+                running;
+                stopped;
+                stopping;
+              };
+    };
+ };
+type Result_2 = 
+ variant {
+   err: Errors;
+   ok: Permissions__1;
+ };
+type Result_10 = 
+ variant {
+   err: Errors;
+   ok: bool;
+ };
+type Result_1 = 
+ variant {
+   err: Errors;
+   ok: Roles;
+ };
+type Result = 
+ variant {
+   err: Errors;
+   ok: Users;
+ };
+type RelatedRP = 
+ record {
+   permissions: Permissions;
+   role: Role;
+ };
+type Permissions__1 = vec Permission;
+type Permissions = vec Permission;
+type Permission__1 = text;
+type Permission = text;
+type Payload = 
+ record {
+   aud: text;
+   exp: int;
+   iat: text;
+   iss: text;
+   jti: JTI;
+   lrp: ListRelatedRP;
+   nbf: text;
+   "principal": principal;
+   sub: text;
+ };
+type Participant = 
+ variant {
+   Admin;
+   User;
+ };
+type ObjectRef = 
+ record {
+   count_ref: CountRef;
+   name: text;
+ };
+type ListRelatedRP = 
+ opt record {
+       RelatedRP;
+       List;
+     };
+type List = 
+ opt record {
+       RelatedRP;
+       List;
+     };
+type JTI = text;
+type Header = 
+ record {
+   alg: Alg;
+   typ: TypeToken;
+ };
+type Errors = 
+ variant {
+   access_error;
+   bind_failed;
+   contain;
+   error_add;
+   error_delete;
+   invalid_caller;
+   invalid_client;
+   invalid_token;
+   not_contain;
+   unbind_failed;
+ };
+type CountRef = nat;
+type AuthClient = 
+ record {
+   participant: Participant;
+   token: Token;
+ };
+type Alg = variant {NONE;};
+type Admins = vec Admin;
+type Admin = principal;
+service : {
+  _users: () -> (Result);
+  add_admin: (User__1) -> (Result_7);
+  add_permission: (Permission__1, AuthClient) -> (Result_9);
+  add_role: (Role__1, AuthClient) -> (Result_8);
+  add_user: (User__1, AuthClient) -> (Result_7);
+  bind_permission: (Permission__1, Role__1, AuthClient) -> (Result_2);
+  bind_role: (User__1, Role__1, AuthClient) -> (Result_1);
+  canister_id: () -> (principal);
+  contains_user: (User__1, AuthClient) -> (Result_7);
+  delete_admin: (User__1) -> (Result_7);
+  delete_client: (AuthClient) -> (Result_10);
+  delete_permission: (Permission__1, AuthClient) -> (Result_9);
+  delete_role: (Role__1, AuthClient) -> (Result_8);
+  delete_user: (User__1, AuthClient) -> (Result_7);
+  get_permission: (Permission__1, AuthClient) -> (Result_6);
+  get_role: (Role__1, AuthClient) -> (Result_6);
+  init: () -> (Result_5);
+  new_client: () -> (Result_4);
+  permissions: (AuthClient) -> (Result_2);
+  request_client: () -> (Result_4);
+  roles: (AuthClient) -> (Result_1);
+  status: () -> (Result_3);
+  status_scaner: () -> (Scaner);
+  unbind_permission: (Permission__1, Role__1, AuthClient) -> (Result_2);
+  unbind_role: (User__1, Role__1, AuthClient) -> (Result_1);
+  users: (AuthClient) -> (Result);
+  valid_client: () -> (bool);
+  whoami_caller: () -> (text);
+}

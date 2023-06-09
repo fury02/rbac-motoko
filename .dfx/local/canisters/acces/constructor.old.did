@@ -1,0 +1,4 @@
+service : {
+  test: () -> ();
+  test_acces_rbac: () -> ();
+}

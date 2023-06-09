@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "rbac": {
+      "type": "motoko",
+      "main": "backend/rbac/rbac.mo"
+    },
+    "consumer": {
+      "type": "motoko",
+      "main": "backend/rbac/demo/consumer.mo"
+    },
+    "test": {
+      "type": "motoko",
+      "main": "backend/test/inner.mo"
+    },
+    "acces": {
+      "type": "motoko",
+      "main": "backend/test/acces.mo"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "npm run --silent sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 2
+}

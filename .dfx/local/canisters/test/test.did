@@ -1,0 +1,5 @@
+service : {
+  add_user: () -> ();
+  test: () -> ();
+  test_rbac: () -> ();
+}

@@ -1,0 +1,49 @@
+// Version: 1.0.0
+type Alg = {#NONE};
+type AuthClient = {participant : Participant; token : Token};
+type AuthClient__1 = AuthClient;
+type CountRef = Nat;
+type CountRef__1 = CountRef;
+type Entry<K, V> = (K, ?V, Nat32, [var Entry<K, V>]);
+type Header = {alg : Alg; typ : TypeToken};
+type JTI = Text;
+type List<T> = ?(T, List<T>);
+type ListRelatedRP = List<RelatedRP>;
+type Participant = {#Admin; #User};
+type Payload =
+  {
+    aud : Text;
+    exp : Int;
+    iat : Text;
+    iss : Text;
+    jti : JTI;
+    lrp : ListRelatedRP;
+    nbf : Text;
+    principal : Principal;
+    sub : Text
+  };
+type Permission = Text;
+type Permission__1 = Permission;
+type Permissions = [Permission];
+type Permissions__1 = Permissions;
+type RelatedRP = {permissions : Permissions; role : Role};
+type Role = Text;
+type Role__1 = Role;
+type Roles = [Role];
+type Roles__1 = Roles;
+type Token = {header : Header; payload : Payload};
+type TypeToken = {#JWT; #UJWT};
+type User = Principal;
+type User__1 = User;
+actor {
+  stable var _acting_clients : (Entry<Principal, AuthClient__1>, [var Nat32]);
+  stable var _associated_role_permission :
+    (Entry<Role__1, Permissions__1>, [var Nat32]);
+  stable var _associated_user_role : (Entry<User__1, Roles__1>, [var Nat32]);
+  stable var _list_permissions :
+    (Entry<Permission__1, CountRef__1>, [var Nat32]);
+  stable var _list_roles : (Entry<Role__1, CountRef__1>, [var Nat32]);
+  stable var _list_users : (Entry<User__1, User__1>, [var Nat32]);
+  stable var scaner : {#OFF; #ON};
+  stable var timer_id : Nat
+};

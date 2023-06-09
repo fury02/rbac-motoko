@@ -1,0 +1,11 @@
+# Motoko dependencies (https://mops.one/)
+
+[dependencies]
+base = "0.8.8"
+map = "8.1.0"
+prng = "0.0.3"
+time-consts = "1.0.1"
+fuzz = "0.1.0"
+ic-certification = "0.1.0"
+certified-cache = "0.2.0"
+StableHashMap = "https://github.com/canscale/StableHashMap#master"
